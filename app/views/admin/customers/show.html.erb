@@ -1,0 +1,27 @@
+<section class="inner">
+	<h2 class="section-ttl"><%= @customer.name %>さんのページ</h2>
+	<table class="customer_info">
+		<thead>
+			<th></th>
+			<th></th>
+			<th></th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>会員ID</td>
+				<td colspan="2"><%= @customer.id %></td>
+			</tr>
+			<tr>
+				<td>名前</td>
+			</tr>
+			<tr>
+				<td>メールアドレス</td>
+				<td colspan="2"><%= @customer.email %></td>
+			</tr>
+			<tr>
+				<td><%= link_to "編集", edit_admin_customer_path(@customer), class: "btn btn-success" %></td>
+			</tr>
+		</tbody>
+	</table>
+	
+</section>

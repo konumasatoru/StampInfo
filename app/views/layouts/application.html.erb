@@ -2,21 +2,31 @@
 <html>
   <head>
     <title>StampInfo</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header class="<%= (admin_signed_in? ? "admin_header" : "" ) %>">
+
+    <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand p-3" href="/"><%= image_tag('no-image.png') %></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+          <div class="<%= (admin_signed_in? ? "admin_header" : "" ) %>">
       <div class="header-content">
-      <%= link_to 'StampInfo', (admin_signed_in? ? admin_top_path : root_path ), class: "logo" %>
-        <ul class="flex">
+      <%= link_to 'NaganoCake', (admin_signed_in? ? admin_top_path : root_path ), class: "logo" %>
           <% if admin_signed_in? %>
-            <li><%= link_to '商品一覧',  admin_items_path %></li>
+            <li><%= link_to '商品一覧',  admin_posts_path %></li>
             <li><%= link_to '会員一覧',  admin_customers_path %></li>
             <li><%= link_to 'ジャンル一覧',  admin_genres_path %></li>
             <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
@@ -24,6 +34,9 @@
             <p>ようこそ、<%= current_customer.name %>さん!</p>
             <li><%= link_to 'マイページ', mypage_path %></li>
             <li><%= link_to '商品一覧', posts_path %></li>
+            <%= select_tag "search[model]", options_for_select({ "会員" => "customer", "商品" => "post" }) %>
+            <%= select_tag "search[method]", options_for_select({ "部分一致" => "partial", "前方一致" => "forward", "後方一致" => "backward", "完全一致" => "perfect" }) %>
+            <%= submit_tag '検索', class: "btn btn-primary" %>
             <li><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete %></li>
           <% else %>
             <li><%= link_to '商品一覧', posts_path %></li>
@@ -40,6 +53,9 @@
           <% end %>
         <% end %>
         
+      </div>
+      </div>
+      </div>
       </div>
     </header>
 
