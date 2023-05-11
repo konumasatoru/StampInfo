@@ -23,6 +23,7 @@ devise_for :customers,skip: [:passwords], controllers: {
 
 scope module: :public do
     root 'homes#top'
+    post 'posts' => 'posts#create'
     
     get 'customers/mypage' => 'customers#show', as: 'mypage'
     # customers/editのようにするとdeviseのルーティングとかぶってしまうためinformationを付け加えている。
