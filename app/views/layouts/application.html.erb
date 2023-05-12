@@ -24,7 +24,7 @@
             <ul class="navbar-nav ml-auto">
           <div class="<%= (admin_signed_in? ? "admin_header" : "" ) %>">
       <div class="header-content">
-      <%= link_to 'NaganoCake', (admin_signed_in? ? admin_top_path : root_path ), class: "logo" %>
+      <%= link_to 'Stamp屋', (admin_signed_in? ? admin_top_path : root_path ), class: "logo" %>
           <% if admin_signed_in? %>
             <li><%= link_to '商品一覧',  admin_posts_path %></li>
             <li><%= link_to '会員一覧',  admin_customers_path %></li>
