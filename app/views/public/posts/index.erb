@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 class="head-line title_h2 text-center admin_post_index">商品一覧(全<%=@posts.total_count %>件)</h2>
+  <div class="row">
+    <% @posts.in_groups_of(4, false).each do |post_group| %>
+      <div class="row">
+        <% post_group.each do |post| %>
+          <div class="col-md-3">
+            <div class="card">
+              <%#= link_to image_tag(product.image, size: '300x200', style: 'object-fit: cover;'), product_path(product), class: "card-img-top" %>
+              <% if post.image.attached? %>
+                <%= link_to post_path(post) do %>
+                  <%= image_tag post.image, class: "card-img-top", style: "height: 200px; object-fit: cover;", fallback: "no-image.png" %>
+                <% end %>
+              <% end %>
+              <div class="card-body">
+                <h5 class="card-title"><%= post.name %></h5>
+                <p class="card-text"><%= number_to_currency(post.price, unit: "¥", precision: 0) %></p>
+                <p class="card-text"><%#= post.genre.name %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= paginate @posts %>
+</div>

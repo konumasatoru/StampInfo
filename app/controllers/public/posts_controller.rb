@@ -8,22 +8,25 @@ class Public::PostsController < ApplicationController
     post = Post.new(post_params)
     # 3. データをデータベースに保存するためのsaveメソッド実行
     post.save
-    # 4. トップ画面へリダイレクト
-    redirect_to '/top'
+    # 4.　投稿一覧画面へリダイレクト
+    redirect_to '/posts'
   end
   
   def index
+     @posts = Post.page(params[:page])
   end
   
   def show
+    @post = Post.find(params[:id])
   end
   
   def edit
+    @post = Post.find(params[:id])
   end
   
    private
   # ストロングパラメータ
   def post_params
-    params.require(:post).permit(:name, :introduction)
+    params.require(:post).permit(:name, :introduction, :genre_id, :price, :image)
   end
 end

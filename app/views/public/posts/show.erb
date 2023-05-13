@@ -1,0 +1,27 @@
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+
+      <h2>商品詳細</h2>
+	    <div class="field">
+	    	     商品名　　　　　<%= @post.name %>
+	    </div>
+	    <div id="img_field">
+	        <%= image_tag @post.image, class: "img-fluid", style: "max-width: 100%; height: auto;", fallback: "no_image.jpg" %>
+	    </div>
+	    <div class="field">
+				商品説明　　　　<%= @post.introduction %>
+	    </div>
+	    <div class="field">
+				ジャンル　　　　<%= @post.genre.name %>
+	    </div>
+
+	    <div class="field">
+					税込価格　　　　<%= @post.add_price %>円
+	        								(<%= @post.price.to_s(:delimited) %>円)
+					(税抜価格)
+	    </div>
+      </div>
+    </div>
+  </div>
+</div>
