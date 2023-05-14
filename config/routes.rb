@@ -33,6 +33,9 @@ scope module: :public do
     get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
     put 'customers/information' => 'customers#update'
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
+    resources :posts, only: [:new, :create, :index, :show, :destroy] do
+    resources :comments, only: [:create]
+  end
     
     resources :customers, only: [:index, :show, :edit, :update]
     resources :posts, only: [:edit, :new, :index, :show, :create, :destroy, :update]

@@ -4,6 +4,8 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
+  has_many :comments, dependent: :destroy
+         
          # 検索方法分岐
   def self.looks(search, word)
     if search == "perfect_match"

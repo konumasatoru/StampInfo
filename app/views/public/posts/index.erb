@@ -16,6 +16,7 @@
                 <h5 class="card-title"><%= post.name %></h5>
                 <p class="card-text"><%= number_to_currency(post.price, unit: "¥", precision: 0) %></p>
                 <p class="card-text"><%#= post.genre.name %></p>
+                <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
               </div>
             </div>
           </div>

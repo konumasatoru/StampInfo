@@ -1,0 +1,44 @@
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+
+      <h2>商品詳細</h2>
+	    <div class="field">
+	    	     商品名　　　　　<%= @post.name %>
+	    </div>
+	    <div id="img_field">
+	        <%= image_tag @post.image, class: "img-fluid", style: "max-width: 100%; height: auto;", fallback: "no_image.jpg" %>
+	    </div>
+	    <div class="field">
+				商品説明　　　　<%= @post.introduction %>
+	    </div>
+	    <div class="field">
+				ジャンル　　　　<%= @post.genre_id %>
+	    </div>
+	    <div class="field">
+	    	販売元リンク　　　<%= link_to @post.seller_url, @post.seller_url, target: '_blank', rel: 'noopener' %>
+	    </div>
+
+	    <div class="field">
+					価格　　　　<%= @post.price %>円
+	    </div>
+	    <%= link_to "編集", edit_post_path(@post.id) %>
+	    <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+	    <div>
+			  <p>コメント件数：<%= @post.comments.count %></p>
+			  <% @post.comments.each do |comment| %>
+			    <p><%= image_tag comment.customer.get_profile_image(100,100) %></p>
+			    <%= comment.customer.name %>
+			    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+			  <% end %>
+			</div>
+				<div>
+				  <%= form_with model: [@post, @comment] do |f| %>
+				    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+				    <%= f.submit "送信する" %>
+				  <% end %>
+				</div>
+      </div>
+    </div>
+  </div>
+</div>
