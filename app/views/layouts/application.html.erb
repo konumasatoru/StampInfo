@@ -26,18 +26,25 @@
       <div class="header-content">
       <%= link_to 'Stamp屋', (admin_signed_in? ? admin_top_path : root_path ), class: "logo" %>
           <% if admin_signed_in? %>
-            <li><%= link_to '商品一覧',  admin_posts_path %></li>
-            <li><%= link_to '会員一覧',  admin_customers_path %></li>
-            <li><%= link_to 'ジャンル一覧',  admin_genres_path %></li>
+            <li><%= link_to '商品一覧', admin_posts_path %></li>
+            <li><%= link_to '会員一覧', admin_customers_path %></li>
+            <li><%= link_to 'ジャンル一覧', admin_genres_path %></li>
             <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
           <% elsif customer_signed_in? %>
             <p>ようこそ、<%= current_customer.name %>さん!</p>
             <li><%= link_to 'マイページ', mypage_path %></li>
-            <li><%= link_to '新規投稿',  new_post_path %></li>
+            <li><%= link_to '新規投稿', new_post_path %></li>
             <li><%= link_to '商品一覧', posts_path %></li>
-            <%= select_tag "search[model]", options_for_select({ "会員" => "customer", "商品" => "post" }) %>
-            <%= select_tag "search[method]", options_for_select({ "部分一致" => "partial", "前方一致" => "forward", "後方一致" => "backward", "完全一致" => "perfect" }) %>
-            <%= submit_tag '検索', class: "btn btn-primary" %>
+            <li>
+              <%= form_with url: search_path, local: true, method: :get do |f| %>
+                <div class="search_form">
+                  <%= f.text_field :word %>
+                  <%= f.select :range, options_for_select([['Customer'], ['Post']]) %>
+                  <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+                  <%= f.submit "検索", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            </li>
             <li><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete %></li>
           <% else %>
             <li><%= link_to '商品一覧', posts_path %></li>
@@ -45,13 +52,16 @@
             <li><%= link_to 'ログイン', new_customer_session_path %></li>
           <% end %>
         </ul>
+        
         <% if admin_signed_in? %>
-          <%= form_tag(admin_search_path, method: :get) do %>
-            <%= text_field_tag "search[content]", "", :placeholder =>"会員: 名前 / 商品: 商品名" %>
-            <%= select_tag "search[model]", options_for_select({ "会員" => "customer", "商品" => "post" }) %>
-            <%= select_tag "search[method]", options_for_select({ "部分一致" => "partial", "前方一致" => "forward", "後方一致" => "backward", "完全一致" => "perfect" }) %>
-            <%= submit_tag '検索', class: "btn btn-primary" %>
-          <% end %>
+          <div class="search_form">
+            <%= form_with url: search_path, local: true, method: :get do |f| %>
+              <%= f.text_field :word %>
+              <%= f.select :range, options_for_select([['Customer'], ['Post']]) %>
+              <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+              <%= f.submit "検索", class: "btn btn-primary" %>
+            <% end %>
+          </div>
         <% end %>
         
       </div>

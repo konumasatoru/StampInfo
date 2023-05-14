@@ -13,14 +13,17 @@
 				商品説明　　　　<%= @post.introduction %>
 	    </div>
 	    <div class="field">
-				ジャンル　　　　<%= @post.genre.name %>
+				ジャンル　　　　<%= @post.genre_id %>
+	    </div>
+	    <div class="field">
+	    	販売元リンク　　　<%= link_to @post.seller_url, @post.seller_url, target: '_blank', rel: 'noopener' %>
 	    </div>
 
 	    <div class="field">
-					税込価格　　　　<%= @post.add_price %>円
-	        								(<%= @post.price.to_s(:delimited) %>円)
-					(税抜価格)
+					価格　　　　<%= @post.price %>円
 	    </div>
+	    <%= link_to "編集", edit_post_path(@post.id) %>
+	    <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
       </div>
     </div>
   </div>

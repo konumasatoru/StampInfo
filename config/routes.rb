@@ -7,8 +7,8 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
 }
 
 namespace :admin do
+    get "search" => "searches#search"
     get 'top' => 'homes#top', as: 'top'
-    get 'search' => 'homes#search', as: 'search'
     resources :customers, only: [:index, :show, :edit, :update]
     resources :posts, except: [:destroy]
     resources :genres, only: [:index, :create, :edit, :update]
@@ -22,6 +22,7 @@ devise_for :customers,skip: [:passwords], controllers: {
 }
 
 scope module: :public do
+    get "search" => "searches#search"
     root 'homes#top'
     post 'posts' => 'posts#create'
     
@@ -34,7 +35,6 @@ scope module: :public do
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
     
     resources :customers, only: [:index, :show, :edit, :update]
-    resources :posts, only: [:edit, :new, :index, :show, :create]
-    resources :posts, except: [:destroy]
+    resources :posts, only: [:edit, :new, :index, :show, :create, :destroy, :update]
   end
 end
