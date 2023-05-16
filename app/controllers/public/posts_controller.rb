@@ -10,7 +10,7 @@ class Public::PostsController < ApplicationController
     # 3. データをデータベースに保存するためのsaveメソッド実行
     if post.save
     #byebug  #continue
-    # 4.　投稿一覧画面へリダイレクト
+    # 4. 投稿一覧画面へリダイレクト
       redirect_to '/posts'
     else
       render :new
@@ -18,8 +18,18 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-     @posts = Post.page(params[:page])
+    @genres = Genre.all
+    @posts = params[:name].present? ? Post.where(genre_id: params[:name]) : Post.all
+    @posts = @posts.page(params[:page])
   end
+  
+  # kensaku you
+  # def search
+  #   @genres = Genre.all
+  #   posts = params[:name].present? ? Genre.find(params[:name]).posts : Post.all
+  #   @posts = posts.page(params[:page])
+  #   render :index
+  # end
   
   def show
     @post = Post.find(params[:id])

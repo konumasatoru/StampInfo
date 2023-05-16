@@ -1,16 +1,19 @@
 class Post < ApplicationRecord
-  
+
   has_one_attached :image
   has_many :comments, dependent: :destroy
   belongs_to :customer
   has_many :favorites, dependent: :destroy
-  
+  #has_many :post_genres, dependent: :destroy
+  #has_many :genres, through: :post_genres, dependent: :destroy
+  belongs_to :genre
+
   validates :name, presence: true
-  
+
   def favorited_by?(customer)
     favorites.where(customer_id: customer.id).exists?
   end
-  
+
   # 検索方法分岐
   def self.looks(search, word)
     if search == "perfect_match"

@@ -22,15 +22,15 @@
 	    <div class="field">
 					価格　　　　<%= @post.price %>円
 	    </div>
-	    <div><% if post.favorited_by?(current_customer) %>
-            <%= link_to post_favorites_path(post), method: :delete do %>
+	    <div><% if @post.favorited_by?(current_customer) %>
+            <%= link_to post_favorites_path(@post), method: :delete do %>
               <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-              <%= post.favorites.count %> いいね
+              <%= @post.favorites.count %> いいね
             <% end %>
           <% else %>
-            <%= link_to post_favorites_path(post), method: :post do %>
+            <%= link_to post_favorites_path(@post), method: :post do %>
               <i class="fas fa-heart" aria-hidden="true"></i>
-              <%= post.favorites.count %> いいね
+              <%= @post.favorites.count %> いいね
             <% end %>
           <% end %></div>
 	    <%= link_to "編集", edit_post_path(@post.id) %>

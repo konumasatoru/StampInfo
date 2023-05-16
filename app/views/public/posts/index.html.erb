@@ -1,6 +1,17 @@
 <div class="container">
-  <h2 class="head-line title_h2 text-center admin_post_index">商品一覧(全<%=@posts.total_count %>件)</h2>
+  <h2 class="head-line title_h2 text-center admin_post_index">商品一覧(全<%= @posts.total_count %>件)</h2>
   <div class="row">
+    <h2>ジャンル検索</h2>
+    <%= form_tag(posts_path, method: :get, class: 'boards__searchForm') do %>
+      <% @genres.each do |genre| %>
+        <div class="genre-box">
+          <%= link_to genre.name, posts_path(name: genre.id) %>
+        </div>
+      <% end %>
+      <div class="genre-box">
+        <%= link_to "全ての投稿", posts_path %>
+      </div>
+    <% end %>
     <% @posts.in_groups_of(4, false).each do |post_group| %>
       <div class="row justify-content-center">
         <% post_group.each do |post| %>
@@ -16,18 +27,21 @@
                 <h5 class="card-title"><%= post.name %></h5>
                 <p class="card-text"><%= number_to_currency(post.price, unit: "¥", precision: 0) %></p>
                 <p class="card-text"><%#= post.genre.name %></p>
-                <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
-                <p><% if post.favorited_by?(current_customer) %>
-                  <%= link_to post_favorites_path(post), method: :delete do %>
-                    <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-                    <%= post.favorites.count %> いいね
+                <p>
+                  <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
+                </p>
+                <p>
+                  <% if post.favorited_by?(current_customer) %>
+                    <%= link_to post_favorites_path(post), method: :delete do %>
+                      <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+                      <%= post.favorites.count %> いいね
+                    <% end %>
+                  <% else %>
+                    <%= link_to post_favorites_path(post), method: :post do %>
+                      <i class="fas fa-heart" aria-hidden="true"></i>
+                      <%= post.favorites.count %> いいね
+                    <% end %>
                   <% end %>
-                <% else %>
-                  <%= link_to post_favorites_path(post), method: :post do %>
-                    <i class="fas fa-heart" aria-hidden="true"></i>
-                    <%= post.favorites.count %> いいね
-                  <% end %>
-                <% end %>
                 </p>
               </div>
             </div>

@@ -1,6 +1,7 @@
 class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!
   before_action :set_current_customer
+  before_action :set_customer, only: [:likes]
 
   def mypage
     @customer = current_customer # 現在ログインしている顧客の情報を取得するメソッド
@@ -25,6 +26,11 @@ class Public::CustomersController < ApplicationController
     @customer.update(is_active: false)
     reset_session
     redirect_to root_path
+  end
+  
+  def likes
+    likes = Like.where(customer_id: @customer.id).pluck(:post_id)
+    @like_posts = Post.find(likes)
   end
 
   private

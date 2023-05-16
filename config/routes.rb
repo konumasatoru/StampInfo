@@ -13,6 +13,7 @@ namespace :admin do
     resources :posts, except: [:destroy]
     resources :genres, only: [:index, :create, :edit, :update]
     resource :favorites, only: [:create, :destroy]
+    resources :posts
   end
   
     # 顧客用
@@ -26,6 +27,7 @@ scope module: :public do
     get "search" => "searches#search"
     root 'homes#top'
     post 'posts' => 'posts#create'
+    resources :posts
     
     resource :customers do
   		collection do
@@ -48,5 +50,11 @@ scope module: :public do
     
     resources :customers, only: [:index, :show, :edit, :update]
     resources :posts, only: [:edit, :new, :index, :show, :create, :destroy, :update]
+    
+    resources :customers do
+  member do
+    get :likes
+  end
+end
   end
 end

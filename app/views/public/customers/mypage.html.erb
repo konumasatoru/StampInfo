@@ -6,6 +6,8 @@
   <% end %>
 </div>
 
+<div><%= link_to "いいねした投稿", likes_customer_path(@customer) %></div>
+
 <!-- ユーザーの投稿一覧 -->
 <% @posts.each do |post| %>
   <div>
