@@ -12,6 +12,7 @@ namespace :admin do
     resources :customers, only: [:index, :show, :edit, :update]
     resources :posts, except: [:destroy]
     resources :genres, only: [:index, :create, :edit, :update]
+    resource :favorites, only: [:create, :destroy]
   end
   
     # 顧客用
@@ -26,7 +27,14 @@ scope module: :public do
     root 'homes#top'
     post 'posts' => 'posts#create'
     
-    get 'customers/mypage' => 'customers#show', as: 'mypage'
+    resource :customers do
+  		collection do
+  	     get 'quit'
+  	     patch 'withdraw'
+  	  end
+  	 end
+    
+    get 'customers/mypage' => 'customers#mypage', as: 'mypage'
     # customers/editのようにするとdeviseのルーティングとかぶってしまうためinformationを付け加えている。
     get 'customers/information/edit' => 'customers#edit', as: 'edit_information'
     patch 'customers/information' => 'customers#update', as: 'update_information'
@@ -35,6 +43,7 @@ scope module: :public do
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw_customer'
     resources :posts, only: [:new, :create, :index, :show, :destroy] do
     resources :comments, only: [:create]
+    resource :favorites, only: [:create, :destroy]
   end
     
     resources :customers, only: [:index, :show, :edit, :update]

@@ -7,10 +7,22 @@ class Public::CommentsController < ApplicationController
     comment.save
     redirect_to post_path(post)
   end
+  
+  def quit
+  end
+  
+  def withdraw
+    @customer = current_customer
+    @customer.update(status: false)
+
+    reset_session
+    flash[:notice] = "ありがとうございました。またのご利用を心よりお待ちしております。"
+    redirect_to root_path
+  end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:comment)
+    params.require(:comment).permit(:body)
   end
 end

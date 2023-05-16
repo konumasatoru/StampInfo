@@ -2,7 +2,9 @@ class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!
   before_action :set_current_customer
 
-  def show
+  def mypage
+    @customer = current_customer # 現在ログインしている顧客の情報を取得するメソッド
+    @posts = @customer.posts
   end
 
   def edit
@@ -32,6 +34,6 @@ class Public::CustomersController < ApplicationController
   end
 
   def customer_params
-    params.require(:customer).permit(:name, :email,)
+    params.require(:customer).permit(:name, :email)
   end
 end

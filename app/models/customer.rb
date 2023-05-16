@@ -5,6 +5,8 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   has_many :comments, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :favorites, dependent: :destroy
          
          # 検索方法分岐
   def self.looks(search, word)

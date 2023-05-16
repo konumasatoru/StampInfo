@@ -11,11 +11,11 @@
       <% end %>
     </tbody>
   <% else %>
-    <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
+    <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
     <tbody>
       <% @posts.each do |post| %>
         <tr>
-          <td><%= post.title %></td>
+          <td><%= post.name %></td>
           <td><%= post.introduction %></td>
         </tr>
       <% end %>
