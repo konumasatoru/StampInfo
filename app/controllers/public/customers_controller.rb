@@ -2,6 +2,7 @@ class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!
   before_action :set_current_customer
   before_action :set_customer, only: [:likes]
+  before_action :ensure_guest_customer, only: [:edit]
 
   def mypage
     @customer = current_customer # 現在ログインしている顧客の情報を取得するメソッド
@@ -23,7 +24,8 @@ class Public::CustomersController < ApplicationController
   end
 
   def withdraw
-    @customer.update(is_active: false)
+    @customer = current_customer
+    @customer.update(status: false)
     reset_session
     redirect_to root_path
   end
@@ -31,6 +33,9 @@ class Public::CustomersController < ApplicationController
   def likes
     likes = Like.where(customer_id: @customer.id).pluck(:post_id)
     @like_posts = Post.find(likes)
+  end
+  
+  def quit
   end
 
   private
@@ -42,4 +47,11 @@ class Public::CustomersController < ApplicationController
   def customer_params
     params.require(:customer).permit(:name, :email)
   end
+  
+  def ensure_guest_customer
+    @customer = Customer.find(params[:id])
+    if @customer.name == "guestuser"
+      redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+    end
+  end  
 end

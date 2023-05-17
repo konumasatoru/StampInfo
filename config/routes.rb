@@ -24,6 +24,10 @@ devise_for :customers,skip: [:passwords], controllers: {
 }
 
 scope module: :public do
+  devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'customers/sessions#guest_sign_in'
+  end
+
     get "search" => "searches#search"
     root 'homes#top'
     post 'posts' => 'posts#create'
