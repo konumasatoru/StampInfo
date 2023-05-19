@@ -19,6 +19,9 @@
 				<td colspan="2"><%= @customer.email %></td>
 			</tr>
 			<tr>
+				<td><%= @customer.status ? "有効" : "退会" %></td>
+			</tr>
+			<tr>
 				<td><%= link_to "編集", edit_admin_customer_path(@customer), class: "btn btn-success" %></td>
 			</tr>
 		</tbody>

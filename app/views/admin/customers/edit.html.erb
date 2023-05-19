@@ -20,7 +20,11 @@
 				<tr>
 					<td colspan="3"><%= f.submit "更新", class: "btn btn-primary" %></td>
 				</tr>
+				
 			</tbody>
 		</table>
+	<% end %>
+	<%= form_with model: @customer, url: withdraw_admin_customers_path(id: @customer.id), method: :patch do |f| %>
+	<%= f.submit "削除", class: "btn btn-primary" %>
 	<% end %>
 </section>
