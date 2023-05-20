@@ -21,6 +21,16 @@ class Admin::CustomersController < ApplicationController
     @customer.update(status: false)
     redirect_to admin_customer_path(@customer)
   end
+  
+  def destroy
+  @comment = Comment.find(params[:id])
+  if @comment.destroy
+    redirect_to post_path(@post), notice: 'コメントを削除しました'
+  else
+    flash.now[:alert] = 'コメント削除に失敗しました'
+    render post_path(@post)
+  end
+  end
 
   private
 

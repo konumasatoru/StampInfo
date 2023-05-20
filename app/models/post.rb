@@ -11,7 +11,11 @@ class Post < ApplicationRecord
   validates :name, presence: true
 
   def favorited_by?(customer)
-    favorites.where(customer_id: customer.id).exists?
+    if customer.nil?
+      return false
+    else
+      favorites.where(customer_id: customer.id).exists?
+    end
   end
 
   # 検索方法分岐

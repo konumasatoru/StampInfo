@@ -13,7 +13,7 @@
 				商品説明　　　　<%= @post.introduction %>
 	    </div>
 	    <div class="field">
-				ジャンル　　　　<%= @post.genre_id %>
+				ジャンル　　　　<%= @post.genre.name %>
 	    </div>
 	    <div class="field">
 	    	販売元リンク　　　<%= link_to @post.seller_url, @post.seller_url, target: '_blank', rel: 'noopener' %>
@@ -22,24 +22,17 @@
 	    <div class="field">
 					価格　　　　<%= @post.price %>円
 	    </div>
-	    <div><% if @post.favorited_by?(current_admin) %>
-          <%= link_to post_favorites_path(@post), method: :delete do %>
-            <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-            <%= @post.favorites.count %> いいね
-          <% end %>
-        <% else %>
-          <%= link_to post_favorites_path(@post), method: :post do %>
-            <i class="fas fa-heart" aria-hidden="true"></i>
-            <%= @post.favorites.count %> いいね
-          <% end %>
-        <% end %></div>
+	    
 	    <%= link_to "編集", edit_post_path(@post.id) %>
 	    <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
 	    <div>
 			  <p>コメント件数：<%= @post.comments.count %></p>
 			  <% @post.comments.each do |comment| %>
+			  <div>
 			    <%= comment.customer.name %>
 			    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
+			    <%= link_to "削除", admin_post_comment_path(comment.post, comment.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+			    </div>
 			  <% end %>
 			</div>
 

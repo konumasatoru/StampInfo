@@ -1,5 +1,5 @@
 class Public::CustomersController < ApplicationController
-  before_action :authenticate_customer!
+  before_action :authenticate_customer!, except: [:index]
   before_action :set_current_customer
   before_action :set_customer, only: [:likes]
   before_action :ensure_guest_customer, only: [:edit]
@@ -10,6 +10,11 @@ class Public::CustomersController < ApplicationController
   end
 
   def edit
+  end
+  
+  def index
+  end
+    
   end
 
   def update

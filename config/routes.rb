@@ -15,7 +15,10 @@ namespace :admin do
      end
    end
     resources :customers, only: [:index, :show, :edit, :update]
-    resources :posts, except: [:destroy]
+    resources :posts, except: [:destroy] do 
+      resources :comments, only: [:destroy]
+    end
+  
     resources :genres, only: [:index, :create, :edit, :update]
     resource :favorites, only: [:create, :destroy]
     resources :posts

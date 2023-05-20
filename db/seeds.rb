@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Admin.create(email: "admin@admin", password: "111111")
 Genre.create([
-    { name: '動物' },
-    { name: '漫画' },
-    { name: 'かわいい'},
-    { name: 'キャラ'},
-    { name: 'ひよこ'},
+    { name: '動物', is_active: true },
+    { name: '漫画', is_active: true  },
+    { name: 'かわいい', is_active: true },
+    { name: 'キャラ', is_active: true },
+    { name: 'ひよこ', is_active: true },
     ])
