@@ -14,8 +14,6 @@ class Public::CustomersController < ApplicationController
   
   def index
   end
-    
-  end
 
   def update
     if @customer.update(customer_params)
