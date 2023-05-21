@@ -1,19 +1,37 @@
 <!-- ユーザーの詳細 -->
-<div>
-  <h3><%= @customer.name %></h3>
-  <% if @customer.name != "guestuser" %>
-  <p><%= link_to "プロフィール編集", edit_customer_path(@customer) %></p>
-  <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3><%= @customer.name %></h3>
+      <% if @customer.name != "guestuser" %>
+        <p><%= link_to "プロフィール編集", edit_customer_path(@customer), class: "btn btn-primary" %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div>
+        <h2 style="background-color: #06c755; color: white; padding: 10px;">いいねした投稿</h2>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div><%= link_to "いいねした投稿", likes_customer_path(@customer) %></div>
-
 <!-- ユーザーの投稿一覧 -->
-<% @posts.each do |post| %>
-  <div>
-    <%= link_to post_path(post.id) do %>
-    <% end %>
-    <p>説明：<%= post.introduction %></p>
-    <p>ユーザーネーム：<%= post.customer.name %></p>
-    <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>  </div>
-<% end %>
+<div class="container">
+  <% @posts.each do |post| %>
+    <div class="row">
+      <div class="col">
+        <%= link_to post_path(post.id), class: "card" do %>
+          <div class="card-body">
+            <p class="card-image"><%= image_tag post.image, size: "300x200" %></p>
+            <p class="card-text">説明：<%= post.introduction %></p>
+            <p class="card-text">ユーザーネーム：<%= post.customer.name %></p>
+            <p class="card-text"><%= link_to "#{post.comments.count} コメント", post_path(post.id), class: "btn btn-primary" %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
