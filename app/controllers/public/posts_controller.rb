@@ -19,7 +19,11 @@ class Public::PostsController < ApplicationController
 
   def index
     @genres = Genre.all
-    @posts = params[:name].present? ? Post.where(genre_id: params[:name]) : Post.all
+    if params[:genre_id].present?
+      @posts = Post.where(genre_id: params[:genre_id])
+    else
+      @posts = Post.all
+    end
     @posts = @posts.page(params[:page])
   end
 

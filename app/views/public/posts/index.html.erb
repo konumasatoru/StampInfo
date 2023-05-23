@@ -2,22 +2,19 @@
   <h2 class="head-line title_h2 text-center admin_post_index">商品一覧(全<%= @posts.total_count %>件)</h2>
   <div class="row">
     <h2>ジャンル検索</h2>
-    <%= form_tag(posts_path, method: :get, class: 'boards__searchForm') do %>
-      <% @genres.each do |genre| %>
-        <div class="genre-box">
-          <%= link_to genre.name, posts_path(name: genre.id) %>
-        </div>
-      <% end %>
-      <div class="genre-box">
-        <%= link_to "全ての投稿", posts_path %>
-      </div>
-    <% end %>
-    <% @posts.in_groups_of(4, false).each do |post_group| %>
-      <div class="row justify-content-center">
-        <% post_group.each do |post| %>
-          <div class="col-md-3">
+
+
+
+<%= form_tag(posts_path, method: :get, class: 'boards__searchForm') do %>
+  <%= select_tag :genre_id, options_for_select([["全てのジャンル", ""]] + @genres.map { |genre| [genre.name, genre.id] }, params[:genre_id]), include_blank: "全てのジャンル" %>
+  <%= submit_tag "検索" %>
+<% end %>
+
+    <div class="row justify-content-center">
+    <% @posts.each do |post| %>
+        <%# post_group.each do |post| %>
+         <div class="col-md-3 mb-4">
             <div class="card">
-              <%#= link_to image_tag(product.image, size: '300x200', style: 'object-fit: cover;'), product_path(product), class: "card-img-top" %>
               <% if post.image.attached? %>
                 <%= link_to post_path(post) do %>
                   <%= image_tag post.image, class: "card-img-top", style: "height: 200px; object-fit: cover;", fallback: "no-image.png" %>
@@ -46,9 +43,8 @@
               </div>
             </div>
           </div>
-        <% end %>
+            <% end %>
       </div>
-    <% end %>
   </div>
   <%= paginate @posts %>
 </div>
