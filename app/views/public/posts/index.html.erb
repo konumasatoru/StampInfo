@@ -6,7 +6,7 @@
 
 
 <%= form_tag(posts_path, method: :get, class: 'boards__searchForm') do %>
-  <%= select_tag :genre_id, options_for_select([["全てのジャンル", ""]] + @genres.map { |genre| [genre.name, genre.id] }, params[:genre_id]), include_blank: "全てのジャンル" %>
+  <%= select_tag :genre_id, options_for_select([["全てのジャンル", ""]] + @genres.map { |genre| [genre.name, genre.id] }, params[:genre_id]) %>
   <%= submit_tag "検索" %>
 <% end %>
 
@@ -27,18 +27,8 @@
                 <p>
                   <%= link_to "#{post.comments.count} コメント", post_path(post.id) %>
                 </p>
-                <p>
-                  <% if post.favorited_by?(current_customer) %>
-                    <%= link_to post_favorites_path(post), method: :delete do %>
-                      <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
-                      <%= post.favorites.count %> いいね
-                    <% end %>
-                  <% else %>
-                    <%= link_to post_favorites_path(post), method: :post do %>
-                      <i class="fas fa-heart" aria-hidden="true"></i>
-                      <%= post.favorites.count %> いいね
-                    <% end %>
-                  <% end %>
+                <p id="favoriteButton_<%= post.id %>">
+                  <%= render "public/favorites/btn", post: post %>
                 </p>
               </div>
             </div>

@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   #has_many :post_genres, dependent: :destroy
   #has_many :genres, through: :post_genres, dependent: :destroy
   belongs_to :genre
+  has_many :favorites, dependent: :destroy
 
   validates :name, presence: true
 
