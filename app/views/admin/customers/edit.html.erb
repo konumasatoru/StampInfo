@@ -1,5 +1,5 @@
 <section class="inner">
-	<h2 class="section-ttl"><%= @customer.name %> <%= @customer.name %> さんの会員情報編集</h2>
+	<h2 class="section-ttl"><%= @customer.name %>さんの会員情報編集</h2>
 	<%= form_with model:@customer, url: admin_customer_path(@customer) do |f| %>
 		<%= render 'layouts/error_messages', resource: @customer %>
 		<table class="customer_info customer_form">
@@ -16,6 +16,12 @@
 				<tr>
 					<td>メールアドレス</td>
 					<td colspan="2"><%= f.email_field :email, autocomplete: "email", :placeholder =>"#{@customer.email}" %></td>
+				</tr>
+				<tr>
+					<%= f.radio_button :status, true, id: "status_true" %>
+		      <%= f.label :status_true, "有効" %>
+		      <%= f.radio_button :status, false, id: "status_false" %>
+		      <%= f.label :status_false, "退会" %>
 				</tr>
 				<tr>
 					<td colspan="3"><%= f.submit "更新", class: "btn btn-primary" %></td>
