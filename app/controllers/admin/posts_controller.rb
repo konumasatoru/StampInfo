@@ -1,4 +1,8 @@
 class Admin::PostsController < ApplicationController
+  before_action :set_product, only: [:show, :edit, :update]
+  before_action :set_genres, only: [:index, :edit, :create, :update]
+  before_action :authenticate_admin!
+  
   def new
     @post = Post.new
   end

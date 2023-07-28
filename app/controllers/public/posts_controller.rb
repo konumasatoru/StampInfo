@@ -1,4 +1,7 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_customer!
+  before_action :ensure_correct_customer, only: [:edit, :update, :destroy]
+  
   def new
     @post = Post.new
   end
@@ -61,5 +64,12 @@ class Public::PostsController < ApplicationController
   # ストロングパラメータ
   def post_params
     params.require(:post).permit(:name, :introduction, :genre_id, :price, :image, :seller_url, :customer_id)
+  end
+  
+  def ensure_correct_customer
+    @post = Post.find(params[:id])
+    unless @post.customer == current_customer
+      redirect_to posts_path
+    end
   end
 end

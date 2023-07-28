@@ -9,7 +9,12 @@ class Post < ApplicationRecord
   belongs_to :genre
   has_many :favorites, dependent: :destroy
 
-  validates :name, presence: true
+  validates :genre_id,       presence: true
+  validates :name,           presence: true
+  validates :introduction,   presence: true
+  validates :price,          presence: true
+  validates :seller_url,     presence: true
+
 
   def favorited_by?(customer)
     if customer.nil?
